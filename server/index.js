@@ -5,7 +5,7 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const multer = require('multer');
 
-require('dotenv').config();
+require('dotenv').config({ path: path.join(__dirname, '.env') });
 const bcrypt = require('bcrypt');
 const PORT = process.env.PORT || 4000;
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || null; // plain fallback (not recommended)
