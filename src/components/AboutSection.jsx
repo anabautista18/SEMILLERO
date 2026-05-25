@@ -106,7 +106,6 @@ export function AboutSection() {
                 <div style={{ color: C.white, fontWeight: 700, marginBottom: 8 }}>{semilleroInfo.advisor.name}</div>
                 <div style={{ color: C.muted, fontSize: '0.9rem' }}>{semilleroInfo.advisor.degree}</div>
                 <div style={{ color: C.muted, fontSize: '0.9rem', marginTop: 8 }}>Email: {semilleroInfo.advisor.email}</div>
-                <div style={{ color: C.muted, fontSize: '0.9rem', marginTop: 4 }}>Tel: {semilleroInfo.advisor.phone}</div>
               </div>
             </div>
             <div style={{ background: C.blackCard, borderRadius: 8, padding: '1.5rem', border: '1px solid rgba(255,255,255,0.06)' }}>

@@ -23,7 +23,6 @@ export const semilleroInfo = {
     name: 'Carlos Mario Paredes Valencia',
     id: '1151940289',
     degree: 'Ing. Mecatrónico con Doctorado en Ingeniería',
-    phone: '315494789',
     email: 'cmparedesv@usbcali.edu.co',
     imageFront: new URL('../img/CARLOSMARIO.jpg', import.meta.url).href,
     imageBack: new URL('../img/CARLOSMARIO2.jpg', import.meta.url).href
