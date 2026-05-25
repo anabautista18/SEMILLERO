@@ -1,0 +1,8 @@
+export const publications = [
+  { type: "Congreso IEEE", title: "An Integrated Framework for Industrial Process Monitoring: Combining Simulation, Real‑Time Control, and Mixed Reality Visualization", authors: "W. Martínez, N. Galvis, A. Hurtado, C. Paredes", link: "https://ieeexplore.ieee.org/abstract/document/11410404" },
+  { type: "Congreso Springer", title: "Anomaly Detection System Based on 3D CNNs and YOLO on Surveillance Videos", authors: "V. Beca, B. Zamora, C. Paredes, S. Dinas, N. Llanos‑Neuta", link: "https://link.springer.com/chapter/10.1007/978-3-032-08203-9_27" },
+  { type: "Congreso IEEE", title: "A Comparative Approach to Search Algorithms for Path Planning in Mobile Robots: A* vs. Minimum Path Sum", authors: "N. Giraldo, B. Naspiran, V. Olave, A. Bautista, C. Paredes, C. Hidalgo", link: "https://ieeexplore.ieee.org/abstract/document/11214603" },
+  { type: "Artículo MDPI", title: "Hybrid AI and LLM‑Enabled Agent‑Based Real‑Time Decision Support Architecture for Industrial Batch Processes", authors: "A. González‑Potes, D. Martínez‑Castro, C. Paredes et al.", link: "https://www.mdpi.com/2673-2688/7/2/51" },
+  { type: "Artículo i‑JIM", title: "MentAlzh: Mobile Application Prototype for Early Detection of Cognitive Impairment", authors: "A. Hurtado, K. Marín, C. Paredes, D. Gómez, A. Rey‑Piedrahita", link: "https://online-journals.org/index.php/i-jim/article/view/54837" },
+  { type: "Artículo ScienceDirect", title: "Implementation of mixed reality for data visualization in liquid soap filling processes", authors: "A. Hurtado, C. Paredes, K. Marín, J. González, J. Álzate", link: "https://www.sciencedirect.com/science/article/pii/S2772508125000389" },
+];
