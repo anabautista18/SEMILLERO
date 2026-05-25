@@ -1,0 +1,15 @@
+version: '3.9'
+services:
+  semillero:
+    build: .
+    ports:
+      - "9023:80"
+    restart: unless-stopped
+    environment:
+      - PORT=${PORT}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD}
+      - COOKIE_SECRET=${COOKIE_SECRET}
+      - COOKIE_SECURE=${COOKIE_SECURE}
+    volumes:
+      - ./server/uploads:/app/server/uploads
+      - ./server/db.json:/app/server/db.json

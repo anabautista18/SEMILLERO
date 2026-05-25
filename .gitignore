@@ -4,3 +4,7 @@ dist
 *.local
 .env
 .env.local
+
+# server data storage
+server/db.json
+server/uploads/

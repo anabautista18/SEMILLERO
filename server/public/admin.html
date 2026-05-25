@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>SEMILLERO Admin</title>
+    <style>
+      body{font-family:Inter, Arial, sans-serif;background:#f4f6fb;padding:24px}
+      .card{background:#fff;border-radius:8px;padding:16px;box-shadow:0 6px 18px rgba(3,68,106,0.06);max-width:900px;margin:0 auto}
+      input,button,textarea{font-size:14px;padding:8px;margin:6px 0;width:100%}
+      .row{display:flex;gap:12px}
+      .col{flex:1}
+      .list-item{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #eee}
+      .muted{color:#666;font-size:13px}
+    </style>
+  </head>
+  <body>
+    <div class="card" id="app">
+      <h2>SEMILLERO - Panel Admin</h2>
+      <div id="loginBox">
+        <p class="muted">Ingrese la contraseña para acceder al panel.</p>
+        <input id="password" placeholder="Contraseña" type="password" />
+        <button id="loginBtn">Ingresar</button>
+      </div>
+
+      <div id="panel" style="display:none">
+        <button id="logoutBtn" style="float:right">Cerrar sesión</button>
+        <h3>Integrantes</h3>
+        <div id="membersList"></div>
+
+        <h4>Agregar integrante</h4>
+        <input id="m_name" placeholder="Nombre" />
+        <input id="m_front" placeholder="URL foto frontal" />
+        <input id="m_back" placeholder="URL foto trasera (opcional)" />
+        <button id="addMemberBtn">Agregar</button>
+      </div>
+    </div>
+    <script src="admin.js"></script>
+  </body>
+</html>

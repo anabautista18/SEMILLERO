@@ -23,7 +23,7 @@ export function Footer() {
         </div>
         <div style={{ borderTop: "1px solid rgba(255,255,255,0.06)", paddingTop: "2rem", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "1rem" }}>
           <div style={{ color: C.muted, fontSize: "0.78rem", fontFamily: "'Orbitron', monospace", letterSpacing: 2 }}>© 2025 SEMILLERO DIDI 4.0 · USB CALI · AMBR </div>
-          <div style={{ color: C.muted, fontSize: "0.78rem" }}>cmparedesv@usbcali.edu.co · +57 315 494 789</div>
+          <div style={{ color: C.muted, fontSize: "0.78rem" }}>cmparedesv@usbcali.edu.co</div>
         </div>
       </div>
     </footer>

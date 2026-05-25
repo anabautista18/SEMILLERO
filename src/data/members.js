@@ -42,11 +42,6 @@ export const members = [
     imageBack: new URL("../img/FELIPERODRIGUEZ2.jpg", import.meta.url).href,
   },
   {
-    name: "Carlos Mario Paredes (Profesor)",
-    imageFront: new URL("../img/CARLOSMARIO.jpg", import.meta.url).href,
-    imageBack: new URL("../img/CARLOSMARIO2.jpg", import.meta.url).href,
-  },
-  {
     name: "Estefanía Martínez",
     imageFront: new URL("../img/Estefanía Martínez.jpg", import.meta.url).href,
     imageBack: new URL("../img/Estefanía Martínez2.jpg", import.meta.url).href,
