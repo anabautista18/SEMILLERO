@@ -5,7 +5,19 @@ export function ContactSection() {
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
   const [sent, setSent] = useState(false);
   const handle = (k) => (e) => setForm({ ...form, [k]: e.target.value });
-  const submit = () => { if (form.name && form.email) { setSent(true); setTimeout(() => setSent(false), 4000); setForm({ name: "", email: "", subject: "", message: "" }); } };
+  const submit = () => {
+    if (!form.name || !form.email) {
+      alert("Por favor ingresa tu nombre y correo electrónico.");
+      return;
+    }
+    const to = "cmparedesv@usbcali.edu.co";
+    const subject = encodeURIComponent(form.subject || "Contacto desde SEMILLERO 4.0");
+    const body = encodeURIComponent(`Nombre: ${form.name}\nCorreo: ${form.email}\n\n${form.message}`);
+    window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
+    setSent(true);
+    setTimeout(() => setSent(false), 4000);
+    setForm({ name: "", email: "", subject: "", message: "" });
+  };
 
   const inputStyle = {
     background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 4,

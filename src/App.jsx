@@ -17,6 +17,10 @@ export default function App() {
 
   const scrollTo = useCallback((name) => {
     setActive(name);
+    if (name === "Admin") {
+      window.location.href = "/admin";
+      return;
+    }
     const el = document.getElementById(sections[name]);
     if (el) el.scrollIntoView({ behavior: "smooth" });
   }, []);

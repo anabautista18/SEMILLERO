@@ -15,11 +15,11 @@ export function HeroSection({ setActive }) {
             — UNIVERSIDAD SAN BUENAVENTURA CALI —
           </div>
           <h1 style={{ fontFamily: "'Orbitron', monospace", fontWeight: 900, fontSize: "clamp(2.5rem, 6vw, 5rem)", lineHeight: 1.05, marginBottom: 24, color: C.white }}>
-            DISEÑO &amp;<br />
+            DISEÑO E<br />
             <span style={{ WebkitTextStroke: `2px ${C.orange}`, color: "transparent" }}>INTERACCIÓN</span><br />
             <span style={{ color: C.purpleGlow }}>INDUSTRIA 4.0</span>
           </h1>
-          <p style={{ color: C.muted, fontSize: "1.05rem", lineHeight: 1.7, maxWidth: 520, marginBottom: 40 }}>
+          <p style={{ color: C.white, fontSize: "1.05rem", lineHeight: 1.7, maxWidth: 520, marginBottom: 40 }}>
             Semillero de investigación que integra inteligencia artificial, realidad mixta y sistemas ciberfísicos para construir el futuro tecnológico de Colombia.
           </p>
           <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
@@ -27,6 +27,10 @@ export function HeroSection({ setActive }) {
               style={{ background: `linear-gradient(90deg, ${C.orange}, ${C.purple})`, color: "#fff", border: "none", padding: "14px 36px", fontFamily: "'Orbitron', monospace", fontSize: "0.8rem", letterSpacing: 2, cursor: "pointer", fontWeight: 700, borderRadius: 2 }}>
               VER PROYECTOS →
             </button>
+            <a href="https://lidis.usbcali.edu.co/" target="_blank" rel="noreferrer"
+              style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", background: "transparent", color: C.purpleGlow, border: `1px solid ${C.purple}`, padding: "12px 28px", fontFamily: "'Orbitron', monospace", fontSize: "0.75rem", letterSpacing: 1.5, textDecoration: "none", borderRadius: 2 }}>
+              IR A GRUPO LIDIS
+            </a>
             <button onClick={() => setActive("Acerca")}
               style={{ background: "transparent", color: C.purpleGlow, border: `1px solid ${C.purple}`, padding: "14px 36px", fontFamily: "'Orbitron', monospace", fontSize: "0.8rem", letterSpacing: 2, cursor: "pointer", borderRadius: 2 }}>
               CONÓCENOS

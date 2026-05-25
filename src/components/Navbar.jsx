@@ -9,7 +9,7 @@ export function Navbar({ active, setActive }) {
     window.addEventListener("scroll", fn);
     return () => window.removeEventListener("scroll", fn);
   }, []);
-  const links = ["Inicio", "Acerca", "Proyectos", "Publicaciones", "Contacto"];
+  const links = ["Inicio", "Acerca", "Proyectos", "Publicaciones", "Contacto", "Admin"];
   return (
     <nav style={{
       position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
@@ -31,7 +31,7 @@ export function Navbar({ active, setActive }) {
             <button key={l} onClick={() => setActive(l)}
               style={{
                 background: "none", border: "none", cursor: "pointer",
-                fontFamily: "'Orbitron', monospace", fontSize: "0.78rem", letterSpacing: 2,
+                fontFamily: "'Orbitron', monospace", fontSize: l === "Admin" ? "0.72rem" : "0.78rem", letterSpacing: 2,
                 color: active === l ? C.orange : C.muted,
                 borderBottom: active === l ? `2px solid ${C.orange}` : "2px solid transparent",
                 paddingBottom: 4, transition: "all 0.2s",
@@ -59,7 +59,7 @@ export function Navbar({ active, setActive }) {
           {links.map(l => (
             <button key={l} onClick={() => { setActive(l); setOpen(false); }}
               style={{ display: "block", width: "100%", textAlign: "left", background: "none", border: "none", cursor: "pointer",
-                fontFamily: "'Orbitron', monospace", fontSize: "0.8rem", color: active === l ? C.orange : C.muted,
+                fontFamily: "'Orbitron', monospace", fontSize: l === "Admin" ? "0.75rem" : "0.8rem", color: active === l ? C.orange : C.muted,
                 padding: "12px 0", letterSpacing: 2 }}>
               {l.toUpperCase()}
             </button>
