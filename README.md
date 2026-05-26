@@ -1,6 +1,6 @@
 # Semillero de Investigación — USB Cali
 
-Sitio web del semillero de investigación. Frontend en React + Vite, backend en Express con autenticación de administrador.
+Sitio web del semillero de investigación. v1.0 Frontend en React + Vite, backend en Express con autenticación de administrador.
 
 ## Levantar con Docker
 
