@@ -13,7 +13,7 @@ export function AboutSection() {
       .catch(() => setMembers(membersFallback));
   }, []);
 
-  const teamMembers = members.filter((member) => member.type !== 'group');
+  const teamMembers = members.filter((member) => !member.type || member.type !== 'group');
   const groupPhoto = members.find((member) => member.type === 'group');
 
   return (
@@ -46,7 +46,7 @@ export function AboutSection() {
             ))}
           </div>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '1rem' }}>
+        <div className="members-grid-responsive">
           {teamMembers.length > 0 ? teamMembers.map((member, i) => (
             member.imageFront ? (
               <div key={member.id || i} className={`member-card ${member.type === 'group' ? 'member-card-static' : ''}`}>
@@ -95,7 +95,7 @@ export function AboutSection() {
             </div>
           </div>
         )}
-        <div style={{ marginTop: '3rem', display: 'grid', gridTemplateColumns: 'minmax(280px, 1fr) minmax(260px, 1fr)', gap: 16, alignItems: 'start' }}>
+        <div style={{ marginTop: '3rem', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 16, alignItems: 'start' }}>
           <div style={{ display: 'grid', gap: 16 }}>
             <div className="advisor-card">
               <div className="advisor-card-photo">
