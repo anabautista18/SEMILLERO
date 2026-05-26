@@ -9,7 +9,7 @@ export function Footer() {
             <div style={{ fontFamily: "'Orbitron', monospace", fontWeight: 900, fontSize: "1.3rem", marginBottom: 16 }}>
               <span style={{ color: C.orange }}>SEMILLERO DIDI</span><span style={{ color: C.purpleGlow }}> 4.0</span>
             </div>
-            <p style={{ color: C.muted, fontSize: "0.82rem", lineHeight: 1.7 }}>Diseño, interacción y desarrollo en la Industria 4.0 · Universidad San Buenaventura Cali</p>
+            <p style={{ color: C.muted, fontSize: "0.82rem", lineHeight: 1.7 }}>Diseño ghs, interacción y desarrollo en la Industria 4.0 · Universidad San Buenaventura Cali</p>
           </div>
           {[
             { title: "Áreas", items: ["Multimedia e Interacción", "IA e Industria 4.0", "Salud Digital", "Sistemas Ciberfísicos", "Realidad Mixta"] },
