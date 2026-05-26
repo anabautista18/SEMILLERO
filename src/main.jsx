@@ -4,7 +4,7 @@ import App from "./App";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
-if (window.location.pathname && window.location.pathname.startsWith('/admin')) {
+if (window.location.pathname && window.location.pathname.startsWith('/didi/admin')) {
   import('./pages/Admin').then(({ default: Admin }) => {
     root.render(
       <React.StrictMode>

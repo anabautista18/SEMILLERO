@@ -7,7 +7,7 @@ export function AboutSection() {
   const [members, setMembers] = useState([]);
 
   useEffect(() => {
-    fetch('/api/members')
+    fetch(import.meta.env.BASE_URL.replace(/\/$/, '') + '/api/members')
       .then((res) => res.ok ? res.json() : membersFallback)
       .then((data) => setMembers(data && data.length ? data : membersFallback))
       .catch(() => setMembers(membersFallback));
