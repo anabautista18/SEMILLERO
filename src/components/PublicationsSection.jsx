@@ -6,7 +6,7 @@ export function PublicationsSection() {
   const [publications, setPublications] = useState([]);
 
   useEffect(() => {
-    fetch('/api/publications')
+    fetch(import.meta.env.BASE_URL.replace(/\/$/, '') + '/api/publications')
       .then((res) => res.ok ? res.json() : publicationsFallback)
       .then((data) => setPublications(data && data.length ? data : publicationsFallback))
       .catch(() => setPublications(publicationsFallback));

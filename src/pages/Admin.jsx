@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import '../styles/globals.css';
 import { C } from '../data/colors';
 
+const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
+
 async function api(path, opts = {}) {
   const headers = opts.body instanceof FormData ? {} : { 'content-type': 'application/json' };
-  const res = await fetch(path, { credentials: 'include', ...opts, headers });
+  const res = await fetch(BASE + path, { credentials: 'include', ...opts, headers });
   if (!res.ok) {
     const error = await res.json().catch(() => ({}));
     throw new Error(error.error || 'API request failed');
@@ -16,7 +18,7 @@ async function uploadFile(file) {
   if (!file) return null;
   const data = new FormData();
   data.append('file', file);
-  const res = await fetch('/api/upload', { method: 'POST', body: data, credentials: 'include' });
+  const res = await fetch(BASE + '/api/upload', { method: 'POST', body: data, credentials: 'include' });
   if (!res.ok) throw new Error('Upload failed');
   const json = await res.json();
   return json.url;
@@ -27,7 +29,7 @@ export default function Admin() {
   const [password, setPassword] = useState('');
 
   useEffect(() => {
-    fetch('/api/me', { credentials: 'include' })
+    fetch(BASE + '/api/me', { credentials: 'include' })
       .then(r => r.json())
       .then(d => setAdmin(d.admin))
       .catch(() => setAdmin(false));

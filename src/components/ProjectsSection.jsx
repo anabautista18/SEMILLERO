@@ -7,7 +7,7 @@ export function ProjectsSection() {
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
-    fetch('/api/projects')
+    fetch(import.meta.env.BASE_URL.replace(/\/$/, '') + '/api/projects')
       .then(res => res.ok ? res.json() : projectsFallback)
       .then((data) => setProjects(data && data.length ? data : projectsFallback))
       .catch(() => setProjects(projectsFallback));
