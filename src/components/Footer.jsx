@@ -7,7 +7,7 @@ export function Footer() {
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "3rem", marginBottom: "3rem" }}>
           <div>
             <div style={{ fontFamily: "'Orbitron', monospace", fontWeight: 900, fontSize: "1.3rem", marginBottom: 16 }}>
-              <span style={{ color: C.orange }}>SEMILLERO DIDI probando</span><span style={{ color: C.purpleGlow }}> 4.0</span>
+              <span style={{ color: C.orange }}>SEMILLERO DIDI</span><span style={{ color: C.purpleGlow }}> 4.0</span>
             </div>
             <p style={{ color: C.muted, fontSize: "0.82rem", lineHeight: 1.7 }}>Diseño2, interacción y desarrollo en la Industria 4.0 · Universidad San Buenaventura Cali</p>
           </div>
