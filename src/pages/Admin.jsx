@@ -11,11 +11,18 @@ const PUBLICATIONS_PER_PAGE = 5;
 async function api(path, opts = {}) {
   const headers = opts.body instanceof FormData ? {} : { 'content-type': 'application/json' };
   const res = await fetch(apiUrl(path), { credentials: 'include', ...opts, headers });
-  if (!res.ok) {
-    const error = await res.json().catch(() => ({}));
-    throw new Error(error.error || 'API request failed');
+  const contentType = res.headers.get('content-type') || '';
+  if (!contentType.includes('application/json')) {
+    const message = res.ok
+      ? 'El servidor devolvió una página HTML en lugar de una respuesta de la API. Comprueba que el sitio se haya actualizado.'
+      : `El servidor rechazó la solicitud (HTTP ${res.status}) y devolvió una página HTML.`;
+    throw new Error(message);
   }
-  return res.json();
+  const data = await res.json();
+  if (!res.ok) {
+    throw new Error(data.error || `La solicitud a la API falló (HTTP ${res.status}).`);
+  }
+  return data;
 }
 
 async function uploadFile(file) {
@@ -23,7 +30,10 @@ async function uploadFile(file) {
   const data = new FormData();
   data.append('file', file);
   const res = await fetch(apiUrl('/api/upload'), { method: 'POST', body: data, credentials: 'include' });
-  if (!res.ok) throw new Error('Upload failed');
+  if (!res.ok) throw new Error(`No se pudo subir la foto (HTTP ${res.status}).`);
+  if (!(res.headers.get('content-type') || '').includes('application/json')) {
+    throw new Error('El servidor devolvió una página HTML al subir la foto. Comprueba que el sitio se haya actualizado.');
+  }
   const json = await res.json();
   return json.url;
 }
@@ -141,7 +151,7 @@ function PeopleManager() {
       const payload = { ...form };
       delete payload.frontFile;
       if (form.frontFile) payload.imageFront = await uploadFile(form.frontFile);
-      const method = editing ? 'PUT' : 'POST';
+      const method = 'POST';
       const path = editing ? `/api/people/${editing}` : '/api/people';
       await api(path, { method, body: JSON.stringify(payload) });
       setForm(emptyForm);
@@ -160,7 +170,7 @@ function PeopleManager() {
   async function remove(id) {
     if (!confirm('¿Eliminar este perfil?')) return;
     try {
-      await api(`/api/people/${id}`, { method: 'DELETE' });
+      await api(`/api/people/${id}/delete`, { method: 'POST' });
       await load();
     } catch (e) {
       setError(`No se pudo eliminar el perfil: ${e.message}`);
@@ -247,7 +257,7 @@ function MembersManager() {
       if (item.frontFile) payload.imageFront = await uploadFile(item.frontFile);
       if (item.backFile) payload.imageBack = await uploadFile(item.backFile);
       if (item.id) {
-        await api('/api/members/' + item.id, { method: 'PUT', body: JSON.stringify(payload) });
+        await api('/api/members/' + item.id, { method: 'POST', body: JSON.stringify(payload) });
       } else {
         await api('/api/members', { method: 'POST', body: JSON.stringify(payload) });
       }
@@ -262,7 +272,7 @@ function MembersManager() {
   async function remove(id) {
     if (!confirm('Eliminar integrante?')) return;
     try {
-      await api('/api/members/' + id, { method: 'DELETE' });
+      await api('/api/members/' + id + '/delete', { method: 'POST' });
       await load();
     } catch (e) {
       setError(`No se pudo eliminar el integrante: ${e.message}`);
@@ -324,7 +334,7 @@ function ProjectsManager() {
     const payload = { title: item.title, desc: item.summary, link: item.link, tag: item.tag, color: item.color, image: item.image };
     if (item.imageFile) payload.image = await uploadFile(item.imageFile);
     if (item.id) {
-      await api('/api/projects/' + item.id, { method: 'PUT', body: JSON.stringify(payload) });
+      await api('/api/projects/' + item.id, { method: 'POST', body: JSON.stringify(payload) });
     } else {
       await api('/api/projects', { method: 'POST', body: JSON.stringify(payload) });
     }
@@ -332,7 +342,7 @@ function ProjectsManager() {
     setEditing(null);
     load();
   }
-  async function remove(id) { if (!confirm('Eliminar proyecto?')) return; await api('/api/projects/' + id, { method: 'DELETE' }); load(); }
+  async function remove(id) { if (!confirm('Eliminar proyecto?')) return; await api('/api/projects/' + id + '/delete', { method: 'POST' }); load(); }
   function startEdit(project) { setEditing(project.id); setForm({ title: project.title, summary: project.desc, link: project.link, tag: project.tag, color: project.color, image: project.image || '', imageFile: null }); }
 
   return (
@@ -413,7 +423,7 @@ function PublicationsManager() {
       const payload = { title: item.title, authors: item.authors, type: item.type, venue: item.venue, link: item.link };
       const isNew = !item.id;
       if (item.id) {
-        await api('/api/publications/' + item.id, { method: 'PUT', body: JSON.stringify(payload) });
+        await api('/api/publications/' + item.id, { method: 'POST', body: JSON.stringify(payload) });
       } else {
         await api('/api/publications', { method: 'POST', body: JSON.stringify(payload) });
       }
@@ -428,7 +438,7 @@ function PublicationsManager() {
   async function remove(id) {
     if (!confirm('Eliminar publicación?')) return;
     try {
-      await api('/api/publications/' + id, { method: 'DELETE' });
+      await api('/api/publications/' + id + '/delete', { method: 'POST' });
       await load();
     } catch (e) {
       setError(`No se pudo eliminar la publicación: ${e.message}`);

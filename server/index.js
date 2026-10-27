@@ -174,7 +174,7 @@ app.post('/api/people', requireAdmin, (req, res) => {
   res.json(person);
 });
 
-app.put('/api/people/:id', requireAdmin, (req, res) => {
+function updatePerson(req, res) {
   const db = readDB();
   const id = Number(req.params.id);
   db.people = db.people || [];
@@ -183,15 +183,21 @@ app.put('/api/people/:id', requireAdmin, (req, res) => {
   db.people[index] = { ...db.people[index], ...req.body };
   writeDB(db);
   res.json(db.people[index]);
-});
+}
 
-app.delete('/api/people/:id', requireAdmin, (req, res) => {
+app.put('/api/people/:id', requireAdmin, updatePerson);
+app.post('/api/people/:id', requireAdmin, updatePerson);
+
+function deletePerson(req, res) {
   const db = readDB();
   const id = Number(req.params.id);
   db.people = (db.people || []).filter((person) => person.id !== id);
   writeDB(db);
   res.json({ ok: true });
-});
+}
+
+app.delete('/api/people/:id', requireAdmin, deletePerson);
+app.post('/api/people/:id/delete', requireAdmin, deletePerson);
 
 app.post('/api/members/seed', requireAdmin, (req, res) => {
   const { members } = req.body || {};
@@ -225,7 +231,7 @@ app.post('/api/members', requireAdmin, (req, res) => {
   res.json(newMember);
 });
 
-app.put('/api/members/:id', requireAdmin, (req, res) => {
+function updateMember(req, res) {
   const db = readDB();
   const id = Number(req.params.id);
   db.members = db.members || [];
@@ -234,22 +240,31 @@ app.put('/api/members/:id', requireAdmin, (req, res) => {
   db.members[idx] = { ...db.members[idx], ...req.body };
   writeDB(db);
   res.json(db.members[idx]);
-});
+}
 
-app.delete('/api/members/:id', requireAdmin, (req, res) => {
+function deleteMember(req, res) {
   const db = readDB();
   const id = Number(req.params.id);
   db.members = db.members || [];
   db.members = db.members.filter(m => m.id !== id);
   writeDB(db);
   res.json({ ok: true });
-});
+}
+
+app.put('/api/members/:id', requireAdmin, updateMember);
+app.post('/api/members/:id', requireAdmin, updateMember);
+app.delete('/api/members/:id', requireAdmin, deleteMember);
+app.post('/api/members/:id/delete', requireAdmin, deleteMember);
 
 // Projects and publications basic routes (read-only GET + admin CRUD)
 app.get('/api/projects', (req, res) => { res.json((readDB().projects) || []); });
 app.post('/api/projects', requireAdmin, (req, res) => { const db = readDB(); const item = { id: Date.now(), ...req.body }; db.projects = db.projects || []; db.projects.push(item); writeDB(db); res.json(item); });
-app.put('/api/projects/:id', requireAdmin, (req, res) => { const db = readDB(); const id = Number(req.params.id); db.projects = db.projects || []; const idx = db.projects.findIndex(p => p.id === id); if (idx === -1) return res.status(404).json({ error: 'not found' }); db.projects[idx] = {...db.projects[idx], ...req.body}; writeDB(db); res.json(db.projects[idx]); });
-app.delete('/api/projects/:id', requireAdmin, (req, res) => { const db = readDB(); const id = Number(req.params.id); db.projects = (db.projects||[]).filter(p => p.id !== id); writeDB(db); res.json({ ok: true }); });
+function updateProject(req, res) { const db = readDB(); const id = Number(req.params.id); db.projects = db.projects || []; const idx = db.projects.findIndex(p => p.id === id); if (idx === -1) return res.status(404).json({ error: 'not found' }); db.projects[idx] = {...db.projects[idx], ...req.body}; writeDB(db); res.json(db.projects[idx]); }
+function deleteProject(req, res) { const db = readDB(); const id = Number(req.params.id); db.projects = (db.projects || []).filter(p => p.id !== id); writeDB(db); res.json({ ok: true }); }
+app.put('/api/projects/:id', requireAdmin, updateProject);
+app.post('/api/projects/:id', requireAdmin, updateProject);
+app.delete('/api/projects/:id', requireAdmin, deleteProject);
+app.post('/api/projects/:id/delete', requireAdmin, deleteProject);
 
 app.get('/api/publications', (req, res) => { res.json((readDB().publications) || []); });
 app.post('/api/publications/seed', requireAdmin, (req, res) => {
@@ -273,8 +288,12 @@ app.post('/api/publications/seed', requireAdmin, (req, res) => {
   res.json({ publications: db.publications, seeded: true });
 });
 app.post('/api/publications', requireAdmin, (req, res) => { const db = readDB(); const item = { id: Date.now(), ...req.body }; db.publications = db.publications || []; db.publications.push(item); writeDB(db); res.json(item); });
-app.put('/api/publications/:id', requireAdmin, (req, res) => { const db = readDB(); const id = Number(req.params.id); db.publications = db.publications || []; const idx = db.publications.findIndex(p => p.id === id); if (idx === -1) return res.status(404).json({ error: 'not found' }); db.publications[idx] = {...db.publications[idx], ...req.body}; writeDB(db); res.json(db.publications[idx]); });
-app.delete('/api/publications/:id', requireAdmin, (req, res) => { const db = readDB(); const id = Number(req.params.id); db.publications = (db.publications||[]).filter(p => p.id !== id); writeDB(db); res.json({ ok: true }); });
+function updatePublication(req, res) { const db = readDB(); const id = Number(req.params.id); db.publications = db.publications || []; const idx = db.publications.findIndex(p => p.id === id); if (idx === -1) return res.status(404).json({ error: 'not found' }); db.publications[idx] = {...db.publications[idx], ...req.body}; writeDB(db); res.json(db.publications[idx]); }
+function deletePublication(req, res) { const db = readDB(); const id = Number(req.params.id); db.publications = (db.publications || []).filter(p => p.id !== id); writeDB(db); res.json({ ok: true }); }
+app.put('/api/publications/:id', requireAdmin, updatePublication);
+app.post('/api/publications/:id', requireAdmin, updatePublication);
+app.delete('/api/publications/:id', requireAdmin, deletePublication);
+app.post('/api/publications/:id/delete', requireAdmin, deletePublication);
 
 const upload = multer({
   storage: multer.diskStorage({

@@ -44,7 +44,7 @@ async function renderMembers(){
     remove.textContent = 'Eliminar';
     remove.addEventListener('click', async () => {
       try {
-        await api('/api/members/' + m.id, { method:'DELETE' });
+        await api('/api/members/' + m.id + '/delete', { method:'POST' });
         await renderMembers();
       } catch (error) {
         alert(error.message);
@@ -100,7 +100,7 @@ addMemberBtn.addEventListener('click', async ()=>{
   try {
     const member = { name, imageFront: front, imageBack: back, linkedin, github };
     if (editingId) {
-      await api('/api/members/' + editingId, { method: 'PUT', body: JSON.stringify(member) });
+      await api('/api/members/' + editingId, { method: 'POST', body: JSON.stringify(member) });
     } else {
       await api('/api/members', { method: 'POST', body: JSON.stringify(member) });
     }
