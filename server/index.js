@@ -4,7 +4,6 @@ const path = require('path');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const multer = require('multer');
-// const nodemailer = require('nodemailer');
 
 require('dotenv').config({ path: path.join(__dirname, '.env') });
 const bcrypt = require('bcrypt');
@@ -12,8 +11,6 @@ const PORT = process.env.PORT || 4000;
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || null; // plain fallback (not recommended)
 const ADMIN_PASSWORD_HASH = process.env.ADMIN_PASSWORD_HASH || null; // preferred
 const COOKIE_SECRET = process.env.COOKIE_SECRET || 'devsecret';
-// const CONTACT_TO = process.env.CONTACT_TO || 'cmparedesv@usbcali.edu.co';
-// const SMTP_PORT = Number(process.env.SMTP_PORT || 587);
 const COOKIE_OPTIONS = {
   httpOnly: true,
   signed: true,
@@ -140,61 +137,6 @@ function requireAdmin(req, res, next){
   if ((req.signedCookies && req.signedCookies.admin === '1') || (req.cookies && req.cookies.admin === '1')) return next();
   res.status(401).json({ error: 'unauthorized' });
 }
-
-/*
-const contactSubmissions = new Map();
-app.post('/api/contact', async (req, res) => {
-  const { name, email, subject, message } = req.body || {};
-  const cleanName = typeof name === 'string' ? name.trim() : '';
-  const cleanEmail = typeof email === 'string' ? email.trim() : '';
-  const cleanSubject = typeof subject === 'string' ? subject.trim() : '';
-  const cleanMessage = typeof message === 'string' ? message.trim() : '';
-
-  if (!cleanName || cleanName.length > 120 || !cleanEmail || cleanEmail.length > 254 ||
-      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleanEmail) || !cleanMessage || cleanMessage.length > 10000 ||
-      cleanSubject.length > 160) {
-    return res.status(400).json({ error: 'Revisa el nombre, correo, asunto y mensaje e inténtalo de nuevo.' });
-  }
-
-  const smtpHost = process.env.SMTP_HOST;
-  const smtpUser = process.env.SMTP_USER;
-  const smtpPass = process.env.SMTP_PASS;
-  const from = process.env.SMTP_FROM || smtpUser;
-  if (!smtpHost || !smtpUser || !smtpPass || !from) {
-    return res.status(503).json({ error: 'El envío de correo aún no está configurado en el servidor.' });
-  }
-
-  const now = Date.now();
-  const windowMs = 15 * 60 * 1000;
-  const clientIp = req.ip;
-  const submissions = (contactSubmissions.get(clientIp) || []).filter((time) => now - time < windowMs);
-  if (submissions.length >= 5) {
-    return res.status(429).json({ error: 'Se alcanzó el límite de envíos. Inténtalo de nuevo más tarde.' });
-  }
-  submissions.push(now);
-  contactSubmissions.set(clientIp, submissions);
-
-  try {
-    const transporter = nodemailer.createTransport({
-      host: smtpHost,
-      port: SMTP_PORT,
-      secure: process.env.SMTP_SECURE === 'true' || SMTP_PORT === 465,
-      auth: { user: smtpUser, pass: smtpPass },
-    });
-    await transporter.sendMail({
-      from,
-      to: CONTACT_TO,
-      replyTo: { name: cleanName, address: cleanEmail },
-      subject: cleanSubject || 'Contacto desde SEMILLERO DIDI 4.0',
-      text: `Nombre: ${cleanName}\nCorreo: ${cleanEmail}\n\n${cleanMessage}`,
-    });
-    res.json({ ok: true });
-  } catch (error) {
-    console.error('Contact email delivery failed:', error.message);
-    res.status(502).json({ error: 'No se pudo entregar el correo en este momento. Inténtalo más tarde.' });
-  }
-});
-*/
 
 app.get('/api/people', (req, res) => {
   res.json(readDB().people || []);

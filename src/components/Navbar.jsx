@@ -41,12 +41,12 @@ export function Navbar({ active, setActive }) {
           ))}
         </div>
         {/* CTA */}
-        <a href="mailto:cmparedesv@usbcali.edu.co" className="hide-mobile" style={{
+        <button type="button" onClick={() => setActive("Contacto")} className="hide-mobile" style={{
           background: `linear-gradient(90deg, ${C.orange}, ${C.purple})`,
           color: "#fff", padding: "8px 20px", borderRadius: 4, fontSize: "0.75rem",
-          fontFamily: "'Orbitron', monospace", letterSpacing: 2, textDecoration: "none",
+          fontFamily: "'Orbitron', monospace", letterSpacing: 2, border: "none", cursor: "pointer",
           fontWeight: 700,
-        }}>UNIRSE</a>
+        }}>UNIRSE</button>
         {/* Hamburger */}
         <button onClick={() => setOpen(!open)} className="show-mobile"
           style={{ background: "none", border: "none", cursor: "pointer", color: C.orange, fontSize: "1.5rem" }}>
