@@ -20,6 +20,8 @@ La app queda disponible en **http://localhost:9023**
 
 Docker guarda los cambios del admin en el volumen persistente `semillero_data` (`db.json`) y en `server/uploads` (imágenes). Esos datos permanecen al reconstruir o reemplazar el contenedor. Conserva ambos al actualizar y respáldalos periódicamente.
 
+El frontend respeta el prefijo `/didi/` al llamar a la API y al cargar imágenes, tanto en el sitio publicado como en desarrollo local.
+
 ## Variables de entorno (`.env`)
 
 | Variable            | Descripción                                      | Ejemplo              |

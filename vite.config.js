@@ -9,6 +9,18 @@ export default defineConfig({
     port: 3000,
     open: true,
     proxy: {
+      '/didi/api': {
+        target: 'http://localhost:4000',
+        rewrite: path => path.replace(/^\/didi/, ''),
+      },
+      '/didi/uploads': {
+        target: 'http://localhost:4000',
+        rewrite: path => path.replace(/^\/didi/, ''),
+      },
+      '/didi/images': {
+        target: 'http://localhost:4000',
+        rewrite: path => path.replace(/^\/didi/, ''),
+      },
       '/api': 'http://localhost:4000',
       '/uploads': 'http://localhost:4000',
       '/images': 'http://localhost:4000'

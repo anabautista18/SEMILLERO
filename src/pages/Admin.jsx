@@ -4,12 +4,13 @@ import { C } from '../data/colors';
 import { members as initialMembers } from '../data/members';
 import { initialPeople } from '../data/people';
 import { publications as initialPublications } from '../data/publications';
+import { apiUrl, assetUrl } from '../utils/urls';
 
 const PUBLICATIONS_PER_PAGE = 5;
 
 async function api(path, opts = {}) {
   const headers = opts.body instanceof FormData ? {} : { 'content-type': 'application/json' };
-  const res = await fetch(path, { credentials: 'include', ...opts, headers });
+  const res = await fetch(apiUrl(path), { credentials: 'include', ...opts, headers });
   if (!res.ok) {
     const error = await res.json().catch(() => ({}));
     throw new Error(error.error || 'API request failed');
@@ -21,7 +22,7 @@ async function uploadFile(file) {
   if (!file) return null;
   const data = new FormData();
   data.append('file', file);
-  const res = await fetch('/api/upload', { method: 'POST', body: data, credentials: 'include' });
+  const res = await fetch(apiUrl('/api/upload'), { method: 'POST', body: data, credentials: 'include' });
   if (!res.ok) throw new Error('Upload failed');
   const json = await res.json();
   return json.url;
@@ -32,7 +33,7 @@ export default function Admin() {
   const [password, setPassword] = useState('');
 
   useEffect(() => {
-    fetch('/api/me', { credentials: 'include' })
+    fetch(apiUrl('/api/me'), { credentials: 'include' })
       .then(r => r.json())
       .then(d => setAdmin(d.admin))
       .catch(() => setAdmin(false));
@@ -350,7 +351,7 @@ function ProjectsManager() {
               </div>
             </div>
             <div style={{ color: C.muted, fontSize: 12 }}>{item.desc}</div>
-            {item.image && <img src={item.image} alt={item.title} style={{ width: '100%', borderRadius: 10, maxHeight: 160, objectFit: 'cover' }} />}
+            {item.image && <img src={assetUrl(item.image)} alt={item.title} style={{ width: '100%', borderRadius: 10, maxHeight: 160, objectFit: 'cover' }} />}
           </div>
         ))}
       </div>

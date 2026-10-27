@@ -3,6 +3,7 @@ import { C } from "../data/colors";
 import { members as membersFallback } from "../data/members";
 import { semilleroInfo } from "../data/semilleroInfo";
 import { initialPeople } from "../data/people";
+import { apiUrl, assetUrl } from "../utils/urls";
 
 function getProfileUrl(value) {
   try {
@@ -71,7 +72,7 @@ function MemberCard({ member }) {
       <div className="member-card-inner">
         <div className="member-card-face front">
           <div className="member-card-photo">
-            <img src={member.imageFront || member.imageBack} alt={member.name} />
+            <img src={assetUrl(member.imageFront || member.imageBack)} alt={member.name} />
           </div>
           <div className="member-card-meta">
             <div className="member-card-name">{member.name}</div>
@@ -80,7 +81,7 @@ function MemberCard({ member }) {
         </div>
         <div className="member-card-face back">
           <div className="member-card-photo">
-            <img src={member.imageBack || member.imageFront} alt={`${member.name} foto 2`} />
+            <img src={assetUrl(member.imageBack || member.imageFront)} alt={`${member.name} foto 2`} />
           </div>
           <div className="member-card-meta">
             {hasSocialLinks ? (
@@ -103,11 +104,11 @@ export function AboutSection() {
   const [people, setPeople] = useState(initialPeople);
 
   useEffect(() => {
-    fetch('/api/members')
+    fetch(apiUrl('/api/members'))
       .then((res) => res.ok ? res.json() : membersFallback)
       .then((data) => setMembers(Array.isArray(data) ? data : membersFallback))
       .catch(() => setMembers(membersFallback));
-    fetch('/api/people')
+    fetch(apiUrl('/api/people'))
       .then((res) => res.ok ? res.json() : initialPeople)
       .then((data) => setPeople(Array.isArray(data) ? data : initialPeople))
       .catch(() => setPeople(initialPeople));
@@ -172,7 +173,7 @@ export function AboutSection() {
               <div className="member-card-inner">
                 <div className="member-card-face front">
                   <div className="member-card-photo">
-                    <img src={groupPhoto.imageFront} alt={groupPhoto.name} />
+                    <img src={assetUrl(groupPhoto.imageFront)} alt={groupPhoto.name} />
                   </div>
                   <div className="member-card-meta">
                     <div className="member-card-name">{groupPhoto.name}</div>
@@ -185,7 +186,7 @@ export function AboutSection() {
           <div className="people-grid">
             {people.map((person) => (
               <article className="people-card" key={person.id || `${person.title}-${person.name}`}>
-                {person.imageFront && <img className="people-card-photo" src={person.imageFront} alt={person.name} />}
+                {person.imageFront && <img className="people-card-photo" src={assetUrl(person.imageFront)} alt={person.name} />}
                 <div className="people-card-content">
                   <div className="people-card-title">{person.title}</div>
                   <h3>{person.name}</h3>

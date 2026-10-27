@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { C } from "../data/colors";
 import { publications as publicationsFallback } from "../data/publications";
+import { apiUrl } from "../utils/urls";
 
 const PUBLICATIONS_PER_PAGE = 5;
 
@@ -9,7 +10,7 @@ export function PublicationsSection() {
   const [visibleCount, setVisibleCount] = useState(PUBLICATIONS_PER_PAGE);
 
   useEffect(() => {
-    fetch('/api/publications')
+    fetch(apiUrl('/api/publications'))
       .then((res) => res.ok ? res.json() : publicationsFallback)
       .then((data) => setPublications(Array.isArray(data) ? data : publicationsFallback))
       .catch(() => setPublications(publicationsFallback));

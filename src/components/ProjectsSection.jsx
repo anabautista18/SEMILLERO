@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
 import { C } from "../data/colors";
 import { projects as projectsFallback } from "../data/projects";
+import { apiUrl } from "../utils/urls";
 
 export function ProjectsSection() {
   const [hov, setHov] = useState(null);
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
-    fetch('/api/projects')
+    fetch(apiUrl('/api/projects'))
       .then(res => res.ok ? res.json() : projectsFallback)
       .then((data) => setProjects(data && data.length ? data : projectsFallback))
       .catch(() => setProjects(projectsFallback));
