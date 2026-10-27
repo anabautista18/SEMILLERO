@@ -2,33 +2,19 @@ import { useState } from "react";
 import { C } from "../data/colors";
 
 const emptyForm = { name: "", email: "", subject: "", message: "" };
+const CONTACT_EMAIL = "cmparedesv@usbcali.edu.co";
 
 export function ContactSection() {
   const [form, setForm] = useState(emptyForm);
   const [status, setStatus] = useState({ type: "", message: "" });
-  const [sending, setSending] = useState(false);
   const handle = (key) => (event) => setForm((current) => ({ ...current, [key]: event.target.value }));
 
-  async function submit(event) {
+  function submit(event) {
     event.preventDefault();
-    setSending(true);
-    setStatus({ type: "", message: "" });
-
-    try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify(form),
-      });
-      const result = await response.json();
-      if (!response.ok) throw new Error(result.error || "No se pudo enviar el mensaje.");
-      setStatus({ type: "success", message: "Mensaje enviado. Gracias por contactarnos." });
-      setForm(emptyForm);
-    } catch (error) {
-      setStatus({ type: "error", message: error.message || "No se pudo enviar el mensaje. Inténtalo más tarde." });
-    } finally {
-      setSending(false);
-    }
+    const subject = form.subject.trim() || "Contacto desde SEMILLERO DIDI 4.0";
+    const body = `Nombre: ${form.name.trim()}\nCorreo: ${form.email.trim()}\n\n${form.message.trim()}`;
+    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    setStatus({ type: "info", message: `Se abrió tu aplicación de correo para enviar el mensaje. Si no se abre, escribe a ${CONTACT_EMAIL}.` });
   }
 
   const inputStyle = {
@@ -50,14 +36,14 @@ export function ContactSection() {
           <input placeholder="Asunto" maxLength={160} value={form.subject} onChange={handle("subject")} style={{ ...inputStyle, gridColumn: "1 / -1" }} />
           <textarea placeholder="Mensaje *" rows={6} required maxLength={10000} value={form.message} onChange={handle("message")} style={{ ...inputStyle, gridColumn: "1 / -1", resize: "vertical" }} />
           {status.message && (
-            <p role="status" style={{ gridColumn: "1 / -1", color: status.type === "success" ? "#8de1b0" : "#ff9b9b", lineHeight: 1.5 }}>
+            <p role="status" style={{ gridColumn: "1 / -1", color: status.type === "error" ? "#ff9b9b" : C.muted, lineHeight: 1.5 }}>
               {status.message}
             </p>
           )}
           <div style={{ gridColumn: "1 / -1", textAlign: "right" }}>
-            <button type="submit" disabled={sending}
-              style={{ background: `linear-gradient(90deg, ${C.orange}, ${C.purple})`, color: "#fff", border: "none", padding: "14px 48px", fontFamily: "'Orbitron', monospace", fontSize: "0.8rem", letterSpacing: 2, cursor: sending ? "wait" : "pointer", fontWeight: 700, borderRadius: 2, opacity: sending ? 0.7 : 1 }}>
-              {sending ? "ENVIANDO..." : "ENVIAR MENSAJE"}
+            <button type="submit"
+              style={{ background: `linear-gradient(90deg, ${C.orange}, ${C.purple})`, color: "#fff", border: "none", padding: "14px 48px", fontFamily: "'Orbitron', monospace", fontSize: "0.8rem", letterSpacing: 2, cursor: "pointer", fontWeight: 700, borderRadius: 2 }}>
+              ABRIR CORREO
             </button>
           </div>
         </form>

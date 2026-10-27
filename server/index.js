@@ -4,7 +4,7 @@ const path = require('path');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const multer = require('multer');
-const nodemailer = require('nodemailer');
+// const nodemailer = require('nodemailer');
 
 require('dotenv').config({ path: path.join(__dirname, '.env') });
 const bcrypt = require('bcrypt');
@@ -12,8 +12,8 @@ const PORT = process.env.PORT || 4000;
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || null; // plain fallback (not recommended)
 const ADMIN_PASSWORD_HASH = process.env.ADMIN_PASSWORD_HASH || null; // preferred
 const COOKIE_SECRET = process.env.COOKIE_SECRET || 'devsecret';
-const CONTACT_TO = process.env.CONTACT_TO || 'cmparedesv@usbcali.edu.co';
-const SMTP_PORT = Number(process.env.SMTP_PORT || 587);
+// const CONTACT_TO = process.env.CONTACT_TO || 'cmparedesv@usbcali.edu.co';
+// const SMTP_PORT = Number(process.env.SMTP_PORT || 587);
 const COOKIE_OPTIONS = {
   httpOnly: true,
   signed: true,
@@ -141,6 +141,7 @@ function requireAdmin(req, res, next){
   res.status(401).json({ error: 'unauthorized' });
 }
 
+/*
 const contactSubmissions = new Map();
 app.post('/api/contact', async (req, res) => {
   const { name, email, subject, message } = req.body || {};
@@ -193,6 +194,7 @@ app.post('/api/contact', async (req, res) => {
     res.status(502).json({ error: 'No se pudo entregar el correo en este momento. Inténtalo más tarde.' });
   }
 });
+*/
 
 app.get('/api/people', (req, res) => {
   res.json(readDB().people || []);

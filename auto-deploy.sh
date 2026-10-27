@@ -13,13 +13,6 @@ ADMIN_PASSWORD=$(grep '^ADMIN_PASSWORD=' "${REPO_DIR}/.env" | cut -d= -f2-)
 ADMIN_PASSWORD_HASH=$(grep '^ADMIN_PASSWORD_HASH=' "${REPO_DIR}/.env" | cut -d= -f2-)
 COOKIE_SECRET=$(grep '^COOKIE_SECRET=' "${REPO_DIR}/.env" | cut -d= -f2-)
 COOKIE_SECURE=$(grep '^COOKIE_SECURE=' "${REPO_DIR}/.env" | cut -d= -f2-)
-CONTACT_TO=$(grep '^CONTACT_TO=' "${REPO_DIR}/.env" | cut -d= -f2-)
-SMTP_HOST=$(grep '^SMTP_HOST=' "${REPO_DIR}/.env" | cut -d= -f2-)
-SMTP_PORT=$(grep '^SMTP_PORT=' "${REPO_DIR}/.env" | cut -d= -f2-)
-SMTP_SECURE=$(grep '^SMTP_SECURE=' "${REPO_DIR}/.env" | cut -d= -f2-)
-SMTP_USER=$(grep '^SMTP_USER=' "${REPO_DIR}/.env" | cut -d= -f2-)
-SMTP_PASS=$(grep '^SMTP_PASS=' "${REPO_DIR}/.env" | cut -d= -f2-)
-SMTP_FROM=$(grep '^SMTP_FROM=' "${REPO_DIR}/.env" | cut -d= -f2-)
 
 cd "$REPO_DIR" || { log "ERROR: no se puede acceder a $REPO_DIR"; exit 1; }
 
@@ -52,13 +45,6 @@ while true; do
       -e "ADMIN_PASSWORD_HASH=${ADMIN_PASSWORD_HASH}" \
       -e "COOKIE_SECRET=${COOKIE_SECRET}" \
       -e "COOKIE_SECURE=${COOKIE_SECURE}" \
-      -e "CONTACT_TO=${CONTACT_TO}" \
-      -e "SMTP_HOST=${SMTP_HOST}" \
-      -e "SMTP_PORT=${SMTP_PORT:-587}" \
-      -e "SMTP_SECURE=${SMTP_SECURE:-false}" \
-      -e "SMTP_USER=${SMTP_USER}" \
-      -e "SMTP_PASS=${SMTP_PASS}" \
-      -e "SMTP_FROM=${SMTP_FROM}" \
       -e DATA_DIR=/app/data \
       -v "${REPO_DIR}/server/uploads:/app/server/uploads" \
       -v "${REPO_DIR}/server/data:/app/data" \

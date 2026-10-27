@@ -12,13 +12,6 @@ services:
       - COOKIE_SECURE=${COOKIE_SECURE}
       - DATA_DIR=/app/data
       - LEGACY_DATA_DIR=/app/legacy
-      - CONTACT_TO=${CONTACT_TO:-cmparedesv@usbcali.edu.co}
-      - SMTP_HOST=${SMTP_HOST}
-      - SMTP_PORT=${SMTP_PORT:-587}
-      - SMTP_SECURE=${SMTP_SECURE:-false}
-      - SMTP_USER=${SMTP_USER}
-      - SMTP_PASS=${SMTP_PASS}
-      - SMTP_FROM=${SMTP_FROM}
     volumes:
       - semillero_data:/app/data
       - ./server/uploads:/app/server/uploads
