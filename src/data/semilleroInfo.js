@@ -24,8 +24,8 @@ export const semilleroInfo = {
     id: '1151940289',
     degree: 'Ing. Mecatrónico con Doctorado en Ingeniería',
     email: 'cmparedesv@usbcali.edu.co',
-    imageFront: new URL('../img/CARLOSMARIO.jpg', import.meta.url).href,
-    imageBack: new URL('../img/CARLOSMARIO2.jpg', import.meta.url).href
+    imageFront: '/images/CARLOSMARIO.jpg',
+    imageBack: '/images/CARLOSMARIO2.jpg'
   },
   coordinator: {
     name: 'Andrés Camilo Medina Muriel',

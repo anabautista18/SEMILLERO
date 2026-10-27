@@ -10,6 +10,9 @@ export function Footer() {
               <span style={{ color: C.orange }}>SEMILLERO DIDI</span><span style={{ color: C.purpleGlow }}> 4.0</span>
             </div>
             <p style={{ color: C.muted, fontSize: "0.82rem", lineHeight: 1.7 }}>Diseño, interacción y desarrollo en la Industria 4.0 · Universidad San Buenaventura Cali</p>
+            <p style={{ color: C.muted, fontSize: "0.82rem", lineHeight: 1.7, marginTop: 12 }}>
+              Carrera 122 # 6-65, Barrio Pance (Avenida 10 de Mayo, La Umbría, Vía a Pance), Cali, Valle del Cauca.
+            </p>
           </div>
           {[
             { title: "Áreas", items: ["Multimedia e Interacción", "IA e Industria 4.0", "Salud Digital", "Sistemas Ciberfísicos", "Realidad Mixta"] },

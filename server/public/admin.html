@@ -28,11 +28,14 @@
         <h3>Integrantes</h3>
         <div id="membersList"></div>
 
-        <h4>Agregar integrante</h4>
+        <h4 id="memberFormTitle">Agregar integrante</h4>
         <input id="m_name" placeholder="Nombre" />
         <input id="m_front" placeholder="URL foto frontal" />
         <input id="m_back" placeholder="URL foto trasera (opcional)" />
+        <input id="m_linkedin" type="url" placeholder="Enlace de LinkedIn (https://...)" />
+        <input id="m_github" type="url" placeholder="Enlace de GitHub (https://...)" />
         <button id="addMemberBtn">Agregar</button>
+        <button id="cancelMemberBtn" style="display:none">Cancelar edición</button>
       </div>
     </div>
     <script src="admin.js"></script>

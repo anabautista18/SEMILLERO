@@ -14,43 +14,76 @@
 
 .members-grid{ display:grid; gap:1rem; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); align-items:start }
 .members-grid-responsive{ display:grid; gap:1.5rem; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); align-items:start }
+.members-without-photos{ margin-top:2.5rem }
+.members-grid-no-photo{ display:flex; flex-wrap:wrap; justify-content:center; gap:1rem }
 
 /* Member card */
-.member-card{ position:relative; overflow:visible; border-radius:14px; background:#0d0d14; border:1px solid rgba(255,255,255,0.06); perspective:1200px; min-height:420px; width:100%; height:100% }
+.member-card{ position:relative; overflow:visible; border-radius:14px; background:#0d0d14; border:1px solid rgba(255,255,255,0.06); perspective:1200px; height:420px; min-height:0; width:100% }
 .member-card-inner{ width:100%; height:100%; transition:transform .5s ease; transform-style:preserve-3d }
-.member-card:hover .member-card-inner{ transform:rotateY(180deg) }
+.member-card:not(.member-card-no-photo):hover .member-card-inner,
+.member-card:not(.member-card-no-photo):focus-within .member-card-inner{ transform:rotateY(180deg) }
 .member-card-static .member-card-inner, .member-card-static:hover .member-card-inner{ transform:none !important }
 .member-card-face{ position:absolute; inset:0; backface-visibility:hidden; display:flex; flex-direction:column; background:#0d0d14; color:#f0f0ff }
 .member-card-face.back{ transform:rotateY(180deg); background:#03446A }
 
-.member-card-photo{ width:100%; overflow:hidden; background:transparent; display:block; padding:0; aspect-ratio: 2/3; border-top-left-radius:14px; border-top-right-radius:14px }
+.member-card-photo{ width:100%; min-height:0; flex:1; overflow:hidden; background:transparent; display:block; padding:0; border-top-left-radius:14px; border-top-right-radius:14px }
 .member-card-photo img{ display:block; width:100%; height:100%; max-width:100%; object-fit:cover; object-position:center 35%; }
 
-.member-card-meta{ flex:1; display:flex; align-items:center; justify-content:center; padding:1rem; text-align:center }
+.member-card-meta{ flex:0 0 auto; min-height:76px; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:.75rem; text-align:center }
 .member-card-name{ font-family:'Inter',sans-serif; font-weight:700; font-size:0.95rem; color:#fff; line-height:1.25 }
+.member-card-role{ margin-top:.4rem; color:#aaa9bf; font:400 .78rem/1.4 'Inter',sans-serif }
+.member-social-links{ display:flex; justify-content:center; gap:.65rem }
+.member-social-link{ width:32px; height:32px; display:inline-flex; align-items:center; justify-content:center; border-radius:50%; color:#fff; background:rgba(255,255,255,.1); transition:transform .2s ease,background .2s ease }
+.member-social-link:hover{ transform:translateY(-2px); background:rgba(255,255,255,.2) }
+.member-social-link.linkedin{ color:#0a66c2 }
+.member-social-link.github{ color:#fff }
+.member-social-link svg{ width:18px; height:18px; fill:currentColor }
+.member-card-no-photo{ width:220px; height:auto; min-height:130px; flex:0 1 220px; padding:1.1rem .9rem; display:flex; flex-direction:row; align-items:center; justify-content:flex-start; gap:.9rem; text-align:left }
+.member-card-no-photo .member-card-inner{ height:auto }
+.member-card-no-photo .member-card-meta{ flex:1; min-width:0; min-height:0; align-items:flex-start; padding:0; text-align:left }
+.member-card-no-photo .member-social-links{ margin-top:.5rem }
+.member-card-no-photo.member-card-has-socials .member-social-links{ display:none }
+.member-card-no-photo.member-card-has-socials:hover .member-card-name,
+.member-card-no-photo.member-card-has-socials:focus-within .member-card-name,
+.member-card-no-photo.member-card-has-socials:hover .member-card-role,
+.member-card-no-photo.member-card-has-socials:focus-within .member-card-role{ display:none }
+.member-card-no-photo.member-card-has-socials:hover .member-social-links,
+.member-card-no-photo.member-card-has-socials:focus-within .member-social-links{ display:flex }
+.member-card-placeholder{ width:48px; height:48px; flex:0 0 48px; display:flex; align-items:center; justify-content:center; border-radius:50%; background:linear-gradient(135deg,#e57224,#7c3aed); color:#fff; font:700 1.25rem 'Orbitron',monospace }
 
 /* Advisor card */
 .advisor-card{ position:relative; overflow:visible; border-radius:12px; background:#0d0d14; border:1px solid rgba(255,255,255,0.06); max-width:360px }
 .advisor-card-photo{ width:100%; overflow:visible; background:transparent; display:block; padding:0 }
 .advisor-card-photo img{ display:block; width:100%; height:100%; max-width:100%; object-fit:cover; object-position:center 30%; }
 .advisor-card-meta{ padding:1rem 1.25rem }
+.people-grid{ margin-top:3rem; display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:1.25rem; align-items:start }
+.people-card{ overflow:hidden; border:1px solid rgba(255,255,255,.07); border-radius:12px; background:#0d0d14 }
+.people-card-photo{ display:block; width:100%; height:240px; object-fit:cover; object-position:center 30% }
+.people-card-content{ padding:1.25rem }
+.people-card-title{ margin-bottom:.65rem; color:#e57224; font:700 .65rem 'Orbitron',monospace; letter-spacing:2px; text-transform:uppercase }
+.people-card h3{ margin:0 0 .5rem; color:#fff; font:700 1rem/1.35 'Inter',sans-serif }
+.people-card p,.people-card-email{ display:block; color:#aaa9bf; font:400 .86rem/1.55 'Inter',sans-serif }
+.people-card-email{ margin-top:.5rem; color:#c6a9ff; text-decoration:none }
+.people-card-email:hover{ text-decoration:underline }
+.people-card .member-social-links{ justify-content:flex-start; margin-top:.85rem }
+.member-social-link.tiktok,.member-social-link.facebook,.member-social-link.instagram,.member-social-link.youtube{ color:#fff }
 
 @media (max-width:768px){
 	.members-grid-responsive { grid-template-columns: repeat(2, 1fr); gap: 1rem }
-	.member-card{ min-height:280px; aspect-ratio: unset }
-	.member-card-photo{ aspect-ratio: 2/3 }
+	.member-card:not(.member-card-no-photo){ height:360px }
 	.member-card-photo img { object-fit: cover; object-position: center 35%; width:100%; height:100% }
 	.advisor-card{ max-width:100% }
 	.advisor-card-photo img { object-fit: cover; object-position: center 30%; width:100%; height:100% }
+	.people-grid{ grid-template-columns:1fr }
 }
 
 @media (max-width:640px){
 	.members-grid-responsive { grid-template-columns: 1fr; gap: 1rem }
-	.member-card{ height: 320px; min-height: unset }
-	.member-card-inner { height: 100% }
-	.member-card-photo{ height: 240px; aspect-ratio: unset }
+	.member-card:not(.member-card-no-photo){ height: 320px }
 	.member-card-name{ font-size: 0.85rem }
-	.member-card-meta { padding: 0.75rem; flex: 1; min-height: 80px }
+	.member-card-meta { padding: 0.75rem; min-height:76px }
+	.members-grid-no-photo{ flex-direction:column; align-items:center }
+	.member-card-no-photo{ width:100%; max-width:420px; min-height:100px; flex-basis:auto }
 }
 
 /* Minimal flip/card helpers kept for compatibility */

@@ -2,15 +2,20 @@ import { useState, useEffect } from "react";
 import { C } from "../data/colors";
 import { publications as publicationsFallback } from "../data/publications";
 
+const PUBLICATIONS_PER_PAGE = 5;
+
 export function PublicationsSection() {
   const [publications, setPublications] = useState([]);
+  const [visibleCount, setVisibleCount] = useState(PUBLICATIONS_PER_PAGE);
 
   useEffect(() => {
-    fetch(import.meta.env.BASE_URL.replace(/\/$/, '') + '/api/publications')
+    fetch('/api/publications')
       .then((res) => res.ok ? res.json() : publicationsFallback)
-      .then((data) => setPublications(data && data.length ? data : publicationsFallback))
+      .then((data) => setPublications(Array.isArray(data) ? data : publicationsFallback))
       .catch(() => setPublications(publicationsFallback));
   }, []);
+
+  const visiblePublications = publications.slice(0, visibleCount);
 
   return (
     <section style={{ padding: "8rem 2rem", maxWidth: 1200, margin: "0 auto" }}>
@@ -21,7 +26,7 @@ export function PublicationsSection() {
         </h2>
       </div>
       <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-        {publications.length > 0 ? publications.map((p, i) => (
+        {publications.length > 0 ? visiblePublications.map((p, i) => (
           <a key={p.id || i} href={p.link || '#'} target="_blank" rel="noreferrer" style={{ textDecoration: "none" }}>
             <div style={{
               background: C.blackCard, border: "1px solid rgba(255,255,255,0.06)", borderRadius: 4, padding: "1.5rem 2rem",
@@ -40,6 +45,27 @@ export function PublicationsSection() {
           </a>
         )) : (
           <div style={{ color: C.muted, textAlign: 'center', padding: '2rem', background: C.blackCard, borderRadius: 8 }}>No hay publicaciones registradas aún.</div>
+        )}
+        {visibleCount < publications.length && (
+          <div style={{ display: "flex", justifyContent: "center", marginTop: 12 }}>
+            <button
+              type="button"
+              onClick={() => setVisibleCount((count) => count + PUBLICATIONS_PER_PAGE)}
+              style={{
+                padding: "0.8rem 1.4rem",
+                border: `1px solid ${C.orange}`,
+                borderRadius: 4,
+                background: "transparent",
+                color: C.white,
+                fontFamily: "'Orbitron', monospace",
+                fontSize: "0.65rem",
+                letterSpacing: 1,
+                cursor: "pointer",
+              }}
+            >
+              Ver más publicaciones
+            </button>
+          </div>
         )}
       </div>
     </section>

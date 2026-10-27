@@ -14,6 +14,7 @@ FROM node:20-alpine AS runtime
 WORKDIR /app
 
 COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/src/img ./src/img
 COPY --from=builder /app/server ./server
 COPY --from=builder /app/server/package*.json ./server/
 
